@@ -16,35 +16,6 @@ This is a Streamlit web application that predicts whether a customer will churn 
 
 ## 📁 Project Structure
 
-📦Customer Churn Prediction/ 
-
-    ├── customer_churn_prediction.py # Main Streamlit app 
-    ├── encoder.pkl # Encoded mappings for categorical variables 
-    ├── scaler.pkl # StandardScaler used during training 
-    ├── feature_order.pkl # Correct order of features for prediction 
-    └── README.md # This file
-
-
----
-
-# 📊 Customer Churn Prediction App
-
-This is a Streamlit web application that predicts whether a customer will churn or stay, based on their service usage data. The model uses machine learning trained on telecom customer data.
-
----
-
-## 🚀 Features
-
-- Interactive UI built with Streamlit
-- User-friendly input forms for customer details
-- Displays churn prediction and probability
-- Uses pre-trained machine learning model (`best_model.pkl`)
-- Handles data preprocessing including label encoding and scaling
-
----
-
-## 📁 Project Structure
-
 Customer Churn Prediction/
 
 ├── customer\_churn\_prediction.py
