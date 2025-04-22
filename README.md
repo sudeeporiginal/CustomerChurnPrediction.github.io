@@ -27,10 +27,16 @@ This is a Streamlit web application that predicts whether a customer will churn 
 
 ## 🛠️ Installation & Run
 
-### 1. Clone the repo
+### **1. Clone the repo**
 ```bash
 git clone https://github.com/your-username/customer-churn-app.git
 cd customer-churn-app
+
+### **2. Install dependencies**
+
+
+---
+ ## 
 
 ### 2. Install dependencies
 pip install -r requirements.txt
