@@ -73,7 +73,7 @@ pip install -r requirements.txt
 
 ## 3. Add model files
 The model file (best\_model.pkl) is not included in the repository due to size limits.
-Download the model from this link: Download best\_model.pkl
+Download the model from this link: [Download best_model.pkl](https://drive.google.com/file/d/1d9WvTRVIKgowANL6pK-2FJeQvPcBsLeP/view?usp=sharing)
 Place it in the root directory of the project (same folder as customer\_churn\_prediction.py)
 
 ## 4. Run the app
