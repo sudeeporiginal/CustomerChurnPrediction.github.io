@@ -17,6 +17,7 @@ This is a Streamlit web application that predicts whether a customer will churn 
 ## 📁 Project Structure
 
 📦Customer Churn Prediction/ 
+
     ├── customer_churn_prediction.py # Main Streamlit app 
     ├── encoder.pkl # Encoded mappings for categorical variables 
     ├── scaler.pkl # StandardScaler used during training 
