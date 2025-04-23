@@ -1,17 +1,26 @@
 import os
 import streamlit as st
 import pickle
-import numpy as np
-import pandas as pd
-from sklearn.preprocessing import StandardScaler, LabelEncoder
+import requests
+from io import BytesIO
 
-# # Debug: Show working directory
-# st.text(f"Working directory: {os.getcwd()}")
+# Google Drive link for 'best_model.pkl'
+google_drive_url = "https://drive.google.com/uc?export=download&id=1d9WvTRVIKgowANL6pK-2FJeQvPcBsLeP"
 
-# Load model, encoders, scaler, and feature order
+# Function to download file from Google Drive
+def download_file_from_google_drive(url):
+    try:
+        response = requests.get(url)
+        return BytesIO(response.content)
+    except Exception as e:
+        st.error(f"Error downloading model: {e}")
+        return None
+
+# Load model, encoders, scaler, and feature order from cloud
 try:
-    with open("best_model.pkl", "rb") as f:
-        model = pickle.load(f)
+    model_file = download_file_from_google_drive(google_drive_url)
+    if model_file:
+        model = pickle.load(model_file)
     with open("encoder.pkl", "rb") as f:
         encoders = pickle.load(f)
     with open("scaler.pkl", "rb") as f:
