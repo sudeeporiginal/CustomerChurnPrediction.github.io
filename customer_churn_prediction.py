@@ -2,6 +2,7 @@ import os
 import streamlit as st
 import pickle
 import requests
+import pandas as pd
 from io import BytesIO
 
 # Google Drive link for 'best_model.pkl'
@@ -11,9 +12,10 @@ google_drive_url = "https://drive.google.com/uc?export=download&id=1d9WvTRVIKgow
 def download_file_from_google_drive(url):
     try:
         response = requests.get(url)
+        response.raise_for_status()  # Ensure we raise an error for bad responses
         return BytesIO(response.content)
-    except Exception as e:
-        st.error(f"Error downloading model: {e}")
+    except requests.exceptions.RequestException as e:
+        st.error(f"Error downloading model from Google Drive: {e}")
         return None
 
 # Load model, encoders, scaler, and feature order from cloud
@@ -21,12 +23,19 @@ try:
     model_file = download_file_from_google_drive(google_drive_url)
     if model_file:
         model = pickle.load(model_file)
+    else:
+        st.error("Failed to load model file.")
+        st.stop()
+
     with open("encoder.pkl", "rb") as f:
         encoders = pickle.load(f)
+
     with open("scaler.pkl", "rb") as f:
         scaler = pickle.load(f)
+
     with open("feature_order.pkl", "rb") as f:
         feature_order = pickle.load(f)
+
 except Exception as e:
     st.error(f"Error loading model files: {e}")
     st.stop()
@@ -84,9 +93,11 @@ input_data = pd.DataFrame({
 # Preprocessing
 def preprocess_input(data):
     try:
+        # Apply Label Encoding and scaling
         for col, encoder in encoders.items():
             if col in data.columns:
                 data[col] = encoder.transform(data[col])
+        
         numeric_cols = ['tenure', 'MonthlyCharges', 'TotalCharges']
         data[numeric_cols] = scaler.transform(data[numeric_cols])
         return data
@@ -99,10 +110,14 @@ if st.button("Predict Churn"):
     try:
         processed = preprocess_input(input_data.copy())
         if processed is not None:
-            # Reorder columns to match model input
+            # Ensure the input data has the right columns
             processed = processed[feature_order]
+
+            # Prediction
             prediction = model.predict(processed)[0]
             probability = model.predict_proba(processed)[0][1]
+            
+            # Display results
             if prediction == 1:
                 st.error(f"🔴 Prediction: Customer will **churn**.")
             else:
