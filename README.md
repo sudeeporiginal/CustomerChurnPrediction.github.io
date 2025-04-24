@@ -2,6 +2,8 @@
 
 This is a Streamlit web application that predicts whether a customer will churn or stay, based on their service usage data. The model uses machine learning trained on telecom customer data.
 
+[Click here to use the live app](https://customerchurnpredictionappio.streamlit.app/)
+
 ---
 
 ## 🚀 Features
